@@ -151,7 +151,7 @@ export default function ProjectAnalysis() {
                 fill="#8884d8"
                 dataKey="value"
               >
-                {projectStatus.map((entry, index) => (
+                {projectStatus.map((_, index) => (
                   <Cell
                     key={`cell-${index}`}
                     fill={COLORS[index % COLORS.length]}

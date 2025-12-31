@@ -182,7 +182,7 @@ export default function BudgetAnalysis() {
                 fill="#8884d8"
                 dataKey="value"
               >
-                {budgetByCategory.map((entry, index) => (
+                {budgetByCategory.map((_, index) => (
                   <Cell
                     key={`cell-${index}`}
                     fill={COLORS[index % COLORS.length]}
