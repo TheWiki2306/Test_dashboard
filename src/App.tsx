@@ -4,11 +4,13 @@ import BudgetAnalysis from "./pages/BudgetAnalysis";
 import ProjectAnalysis from "./pages/ProjectAnalysis";
 import ProgramTracking from "./pages/ProgramTracking";
 import SocioEconomicData from "./pages/SocioEconomicData";
+import LandingPage from "./pages/LandingPage";
 import { Menu, X } from "lucide-react";
 
 type Page = "budget" | "project" | "program" | "socioeconomic";
 
 function App() {
+  const [showDashboard, setShowDashboard] = useState(false);
   const [activePage, setActivePage] = useState<Page>("budget");
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
@@ -45,6 +47,10 @@ function App() {
         return <BudgetAnalysis />;
     }
   };
+
+  if (!showDashboard) {
+    return <LandingPage onGetStarted={() => setShowDashboard(true)} />;
+  }
 
   return (
     <div className="flex h-screen bg-gray-50 overflow-hidden">

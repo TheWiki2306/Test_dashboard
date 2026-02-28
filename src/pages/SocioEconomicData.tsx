@@ -13,6 +13,13 @@ import {
   Area,
 } from "recharts";
 import { Users, Building, GraduationCap, Heart } from "lucide-react";
+import { useState } from "react";
+import Health from "../components/Health";
+import Agriculture from "../components/Agriculture";
+import Others from "../components/Others";
+import Education from "../components/Education";
+
+const tabs = ["Health", "Education", "Agriculture", "Others"];
 
 const populationData = [
   { year: "2019", population: 4500000, urban: 1800000, rural: 2700000 },
@@ -74,10 +81,27 @@ const avgHealthScore =
   healthMetrics.length;
 
 export default function SocioEconomicData() {
+  const [activeTab, setActiveTab] = useState<string>(tabs[0]);
+  const [selectedYear, setSelectedYear] = useState<string>("2024");
+
+  const renderSection = () => {
+    switch (activeTab) {
+      case tabs[0]:
+        return <Health selectedYear={selectedYear} />;
+      case tabs[1]:
+        return <Education />;
+      case tabs[2]:
+        return <Agriculture />;
+      case tabs[3]:
+        return <Others />;
+      default:
+        return <Health selectedYear={selectedYear} />;
+    }
+  };
   return (
     <div className="p-4 sm:p-6 lg:p-8 space-y-4 sm:space-y-6 pt-16 lg:pt-8">
       <div className="mb-4 sm:mb-6 lg:mb-8">
-        <h1 className="text-2xl sm:text-3xl font-bold text-gray-800 mb-2">
+        <h1 className="text-2xl sm:text-3xl font-bold text-[#284d44] mb-2">
           Social Economic Data
         </h1>
         <p className="text-sm sm:text-base text-gray-600">
@@ -85,9 +109,48 @@ export default function SocioEconomicData() {
         </p>
       </div>
 
+      <div className="bg-white p-4 sm:p-6 rounded-lg shadow-md border border-gray-200">
+        <h2 className="text-lg sm:text-xl font-semibold text-gray-800 mb-3 sm:mb-4">
+          Socio Economic Year Journey
+        </h2>
+        <div className="flex items-center justify-between ">
+          <div className="flex items-center gap-2">
+            <h5 className="text-sm sm:text-base text-gray-600">Select Year:</h5>
+            <select
+              className="text-sm sm:text-base text-gray-600 border border-gray-300 rounded-md px-4 py-2"
+              value={selectedYear}
+              onChange={(event) => setSelectedYear(event.target.value)}
+            >
+              <option value="2024">2024</option>
+              <option value="2025">2025</option>
+              <option value="2026">2026</option>
+            </select>
+          </div>
+          <div className="flex items-center gap-2">
+            <h5 className="text-sm sm:text-base text-gray-600 ">
+              Select Month:
+            </h5>
+            <select className="text-sm sm:text-base text-gray-600 border border-gray-300 rounded-md px-4 py-2">
+              <option value="January">January</option>
+              <option value="February">February</option>
+              <option value="March">March</option>
+              <option value="April">April</option>
+              <option value="May">May</option>
+              <option value="June">June</option>
+              <option value="July">July</option>
+              <option value="August">August</option>
+              <option value="September">September</option>
+              <option value="October">October</option>
+              <option value="November">November</option>
+              <option value="December">December</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
       {/* Key Metrics */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
-        <div className="bg-white p-4 sm:p-6 rounded-lg shadow-md border border-gray-200">
+        <div className="bg-white p-4 sm:p-6 rounded-lg shadow-md border border-gray-200 hover:scale-110 transition-all duration-300 cursor-pointer">
           <div className="flex items-center justify-between">
             <div className="flex-1 min-w-0">
               <p className="text-xs sm:text-sm text-gray-600 mb-1">
@@ -101,42 +164,40 @@ export default function SocioEconomicData() {
           </div>
         </div>
 
-        <div className="bg-white p-4 sm:p-6 rounded-lg shadow-md border border-gray-200">
+        <div className="bg-white p-4 sm:p-6 rounded-lg shadow-md border border-gray-200 hover:scale-110 transition-all duration-300 cursor-pointer">
           <div className="flex items-center justify-between">
             <div className="flex-1 min-w-0">
-              <p className="text-xs sm:text-sm text-gray-600 mb-1">
-                Literacy Rate
-              </p>
+              <p className="text-xs sm:text-sm text-gray-600 mb-1">State GDP</p>
               <p className="text-xl sm:text-2xl font-bold text-green-600">
-                {currentLiteracy}%
+                ₦1.2 Trillion
               </p>
             </div>
             <GraduationCap className="w-8 h-8 sm:w-10 sm:h-10 text-green-600 flex-shrink-0 ml-2" />
           </div>
         </div>
 
-        <div className="bg-white p-4 sm:p-6 rounded-lg shadow-md border border-gray-200">
+        <div className="bg-white p-4 sm:p-6 rounded-lg shadow-md border border-gray-200 hover:scale-110 transition-all duration-300 cursor-pointer">
           <div className="flex items-center justify-between">
             <div className="flex-1 min-w-0">
               <p className="text-xs sm:text-sm text-gray-600 mb-1">
-                School Enrollment
+                GDP Growth Rate
               </p>
               <p className="text-xl sm:text-2xl font-bold text-blue-600">
-                {currentEnrollment}%
+                3.15%
               </p>
             </div>
             <Building className="w-8 h-8 sm:w-10 sm:h-10 text-blue-600 flex-shrink-0 ml-2" />
           </div>
         </div>
 
-        <div className="bg-white p-4 sm:p-6 rounded-lg shadow-md border border-gray-200">
+        <div className="bg-white p-4 sm:p-6 rounded-lg shadow-md border border-gray-200 hover:scale-110 transition-all duration-300 cursor-pointer">
           <div className="flex items-center justify-between">
             <div className="flex-1 min-w-0">
               <p className="text-xs sm:text-sm text-gray-600 mb-1">
-                Health Score
+                Investment Inflows
               </p>
               <p className="text-xl sm:text-2xl font-bold text-purple-600">
-                {avgHealthScore.toFixed(1)}
+                ₦2 Billion
               </p>
             </div>
             <Heart className="w-8 h-8 sm:w-10 sm:h-10 text-purple-600 flex-shrink-0 ml-2" />
@@ -144,129 +205,74 @@ export default function SocioEconomicData() {
         </div>
       </div>
 
-      {/* Charts Row 1 */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
-        <div className="bg-white p-4 sm:p-6 rounded-lg shadow-md border border-gray-200">
-          <h2 className="text-lg sm:text-xl font-semibold text-gray-800 mb-3 sm:mb-4">
-            Population Growth Trend
-          </h2>
-          <ResponsiveContainer
-            width="100%"
-            height={250}
-            className="sm:h-[300px]"
-          >
-            <AreaChart
-              data={populationData}
-              margin={{ top: 5, right: 10, left: 0, bottom: 5 }}
-            >
-              <CartesianGrid strokeDasharray="3 3" />
-              <XAxis dataKey="year" tick={{ fontSize: 12 }} />
-              <YAxis tick={{ fontSize: 12 }} />
-              <Tooltip formatter={(value: number) => value.toLocaleString()} />
-              <Legend wrapperStyle={{ fontSize: "12px" }} />
-              <Area
-                type="monotone"
-                dataKey="population"
-                stackId="1"
-                stroke="#0ea5e9"
-                fill="#0ea5e9"
-                fillOpacity={0.6}
-                name="Total Population"
-              />
-              <Area
-                type="monotone"
-                dataKey="urban"
-                stackId="2"
-                stroke="#10b981"
-                fill="#10b981"
-                fillOpacity={0.6}
-                name="Urban"
-              />
-              <Area
-                type="monotone"
-                dataKey="rural"
-                stackId="2"
-                stroke="#f59e0b"
-                fill="#f59e0b"
-                fillOpacity={0.6}
-                name="Rural"
-              />
-            </AreaChart>
-          </ResponsiveContainer>
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
+        <div className="bg-white p-4 sm:p-6 rounded-lg shadow-md border border-gray-200 hover:scale-110 transition-all duration-300 cursor-pointer">
+          <div className="flex items-center justify-between">
+            <div className="flex-1 min-w-0">
+              <p className="text-xs sm:text-sm text-gray-600 mb-1">
+                MSMEs Population
+              </p>
+              <p className="text-xl sm:text-2xl font-bold text-gray-800 truncate">
+                1,000
+              </p>
+            </div>
+            <Users className="w-8 h-8 sm:w-10 sm:h-10 text-primary-600 flex-shrink-0 ml-2" />
+          </div>
         </div>
 
-        <div className="bg-white p-4 sm:p-6 rounded-lg shadow-md border border-gray-200">
-          <h2 className="text-lg sm:text-xl font-semibold text-gray-800 mb-3 sm:mb-4">
-            Education Indicators
-          </h2>
-          <ResponsiveContainer
-            width="100%"
-            height={250}
-            className="sm:h-[300px]"
-          >
-            <LineChart
-              data={educationMetrics}
-              margin={{ top: 5, right: 10, left: 0, bottom: 5 }}
-            >
-              <CartesianGrid strokeDasharray="3 3" />
-              <XAxis dataKey="year" tick={{ fontSize: 12 }} />
-              <YAxis tick={{ fontSize: 12 }} />
-              <Tooltip />
-              <Legend wrapperStyle={{ fontSize: "12px" }} />
-              <Line
-                type="monotone"
-                dataKey="literacy"
-                stroke="#0ea5e9"
-                strokeWidth={2}
-                name="Literacy Rate %"
-              />
-              <Line
-                type="monotone"
-                dataKey="enrollment"
-                stroke="#10b981"
-                strokeWidth={2}
-                name="Enrollment %"
-              />
-              <Line
-                type="monotone"
-                dataKey="completion"
-                stroke="#f59e0b"
-                strokeWidth={2}
-                name="Completion %"
-              />
-            </LineChart>
-          </ResponsiveContainer>
+        <div className="bg-white p-4 sm:p-6 rounded-lg shadow-md border border-gray-200 hover:scale-110 transition-all duration-300 cursor-pointer">
+          <div className="flex items-center justify-between">
+            <div className="flex-1 min-w-0">
+              <p className="text-xs sm:text-sm text-gray-600 mb-1">
+                No. of Supported MSMEs
+              </p>
+              <p className="text-xl sm:text-2xl font-bold text-green-600">
+                700
+              </p>
+            </div>
+            <GraduationCap className="w-8 h-8 sm:w-10 sm:h-10 text-green-600 flex-shrink-0 ml-2" />
+          </div>
         </div>
+
+        <div className="bg-white p-4 sm:p-6 rounded-lg shadow-md border border-gray-200 hover:scale-110 transition-all duration-300 cursor-pointer">
+          <div className="flex items-center justify-between">
+            <div className="flex-1 min-w-0">
+              <p className="text-xs sm:text-sm text-gray-600 mb-1">
+                Business Registration Growth
+              </p>
+              <p className="text-xl sm:text-2xl font-bold text-blue-600">
+                32.15%
+              </p>
+            </div>
+            <Building className="w-8 h-8 sm:w-10 sm:h-10 text-blue-600 flex-shrink-0 ml-2" />
+          </div>
+        </div>
+      </div>
+
+      <div className="bg-white p-4 sm:p-6 rounded-lg shadow-md border border-gray-200">
+        <h3 className="text-lg sm:text-xl font-semibold text-gray-800 mb-3 sm:mb-4">
+          Socio-Economic Data by Category
+        </h3>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
+          {tabs.map((item) => (
+            <button
+              key={item}
+              className={`text-gray-600 font-bold flex justify-center p-2 sm:p-2 shadow-md border border-gray-200 rounded-full transition-all duration-300 ${
+                activeTab === item ? "bg-emerald-900 text-white" : "bg-gray-200"
+              }`}
+              type="button"
+              onClick={() => setActiveTab(item)}
+            >
+              {item}
+            </button>
+          ))}
+        </div>
+        <div className="mt-4">{renderSection()}</div>
       </div>
 
       {/* Charts Row 2 */}
-      <div className="bg-white p-4 sm:p-6 rounded-lg shadow-md border border-gray-200">
-        <h2 className="text-lg sm:text-xl font-semibold text-gray-800 mb-3 sm:mb-4">
-          Health Indicators
-        </h2>
-        <ResponsiveContainer width="100%" height={250} className="sm:h-[300px]">
-          <BarChart
-            data={healthMetrics}
-            margin={{ top: 5, right: 10, left: 0, bottom: 60 }}
-          >
-            <CartesianGrid strokeDasharray="3 3" />
-            <XAxis
-              dataKey="indicator"
-              angle={-45}
-              textAnchor="end"
-              height={80}
-              tick={{ fontSize: 12 }}
-            />
-            <YAxis tick={{ fontSize: 12 }} />
-            <Tooltip />
-            <Legend wrapperStyle={{ fontSize: "12px" }} />
-            <Bar dataKey="value" fill="#0ea5e9" name="Current Value" />
-            <Bar dataKey="target" fill="#10b981" name="Target" />
-          </BarChart>
-        </ResponsiveContainer>
-      </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
+      {/* <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
         <div className="bg-white p-4 sm:p-6 rounded-lg shadow-md border border-gray-200">
           <h2 className="text-lg sm:text-xl font-semibold text-gray-800 mb-3 sm:mb-4">
             Employment by Sector
@@ -339,10 +345,10 @@ export default function SocioEconomicData() {
             </LineChart>
           </ResponsiveContainer>
         </div>
-      </div>
+      </div> */}
 
       {/* Infrastructure Access Table */}
-      <div className="bg-white p-4 sm:p-6 rounded-lg shadow-md border border-gray-200">
+      {/* <div className="bg-white p-4 sm:p-6 rounded-lg shadow-md border border-gray-200">
         <h2 className="text-lg sm:text-xl font-semibold text-gray-800 mb-3 sm:mb-4">
           Infrastructure Access
         </h2>
@@ -402,7 +408,7 @@ export default function SocioEconomicData() {
             </table>
           </div>
         </div>
-      </div>
+      </div> */}
     </div>
   );
 }

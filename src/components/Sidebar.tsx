@@ -85,7 +85,7 @@ export default function Sidebar({
                 onClick={() => setActivePage(item.id)}
                 className={`w-full flex items-center space-x-3 px-3 lg:px-4 py-2.5 lg:py-3 rounded-lg transition-colors text-left ${
                   isActive
-                    ? "bg-primary-600 text-white shadow-md"
+                    ? "bg-[#3c7466] text-white shadow-md"
                     : "text-gray-700 hover:bg-gray-100"
                 }`}
               >
@@ -100,8 +100,8 @@ export default function Sidebar({
         </nav>
 
         <div className="p-3 lg:p-4 border-t border-gray-200">
-          <p className="text-xs text-gray-500 text-center">
-            Kebbi State Infographics
+          <p className="text-xs font-semibold text-gray-500 text-center">
+            Kebbi State Impact Dashboard
           </p>
         </div>
       </aside>

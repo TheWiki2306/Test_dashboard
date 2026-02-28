@@ -16,9 +16,201 @@ import {
   PolarRadiusAxis,
   Radar,
 } from "recharts";
-import { FolderKanban, CheckCircle, Clock, AlertTriangle } from "lucide-react";
+import { FolderKanban, CheckCircle, AlertTriangle } from "lucide-react";
+import { useState } from "react";
+import ProjectDetails, {
+  type ProjectDetail,
+} from "../components/ProjectDetails";
 
-const COLORS = ["#0ea5e9", "#10b981", "#f59e0b", "#ef4444", "#8b5cf6"];
+const COLORS = ["#10b981", "#0ea5e9", , "#f59e0b", "#ef4444", "#8b5cf6"];
+
+const projectDetails: ProjectDetail[] = [
+  {
+    name: "Project 1",
+    description: "Project 1 Description",
+    projectType: "Housing",
+    overview:
+      "This is a housing project where residents of the community will be provided with a safe and secure place to live. It will be built on a 1000 square meter plot of land. The project will be completed in six (6) months. The project is expected to cost N100,000,000.00.",
+    startDate: "2024-01-01",
+    timeline: "Six (6) months",
+    status: "Completed",
+    contractedCompany: "Company 1",
+    photos: [
+      {
+        id: "p1-1",
+        src: "/assets/images/olu-1.jpg",
+        caption: "Groundbreaking ceremony",
+        date: "2024-01-10",
+      },
+      {
+        id: "p1-2",
+        src: "/assets/images/olu-1.jpg",
+        caption: "Foundation work in progress",
+        date: "2024-02-04",
+      },
+      {
+        id: "p1-3",
+        src: "/assets/images/olu-1.jpg",
+        caption: "Mid-stage construction",
+        date: "2024-03-16",
+      },
+      {
+        id: "p1-4",
+        src: "/assets/images/olu-1.jpg",
+        caption: "Project site inspection",
+        date: "2024-04-02",
+      },
+    ],
+  },
+  {
+    name: "Project 2",
+    description: "Project 2 Description",
+    projectType: "Housing",
+    overview:
+      "This is a housing project where residents of the community will be provided with a safe and secure place to live. It will be built on a 1000 square meter plot of land. The project will be completed in six (6) months. The project is expected to cost N100,000,000.00.",
+    startDate: "2024-01-01",
+    timeline: "Six (6) months",
+    status: "Completed",
+    contractedCompany: "Company 2",
+    photos: [
+      {
+        id: "p2-1",
+        src: "/assets/images/olu-1.jpg",
+        caption: "Site clearing completed",
+        date: "2024-01-14",
+      },
+      {
+        id: "p2-2",
+        src: "/assets/images/olu-1.jpg",
+        caption: "Structural framework",
+        date: "2024-02-18",
+      },
+      {
+        id: "p2-3",
+        src: "/assets/images/olu-1.jpg",
+        caption: "Community validation visit",
+        date: "2024-03-09",
+      },
+      {
+        id: "p2-4",
+        src: "/assets/images/olu-1.jpg",
+        caption: "Finishing stage",
+        date: "2024-04-20",
+      },
+    ],
+  },
+  {
+    name: "Project 3",
+    description: "Project 3 Description",
+    projectType: "Housing",
+    overview:
+      "This is a housing project where residents of the community will be provided with a safe and secure place to live. It will be built on a 1000 square meter plot of land. The project will be completed in six (6) months. The project is expected to cost N100,000,000.00.",
+    startDate: "2024-01-01",
+    timeline: "Six (6) months",
+    status: "Completed",
+    contractedCompany: "Company 3",
+    photos: [
+      {
+        id: "p3-1",
+        src: "/assets/images/olu-1.jpg",
+        caption: "Early mobilization works",
+        date: "2024-01-22",
+      },
+      {
+        id: "p3-2",
+        src: "/assets/images/olu-1.jpg",
+        caption: "Materials delivered on site",
+        date: "2024-02-11",
+      },
+      {
+        id: "p3-3",
+        src: "/assets/images/olu-1.jpg",
+        caption: "Civil works phase",
+        date: "2024-03-23",
+      },
+      {
+        id: "p3-4",
+        src: "/assets/images/olu-1.jpg",
+        caption: "Quality assurance review",
+        date: "2024-04-15",
+      },
+    ],
+  },
+  {
+    name: "Project 4",
+    description: "Project 4 Description",
+    projectType: "Housing",
+    overview:
+      "This is a housing project where residents of the community will be provided with a safe and secure place to live. It will be built on a 1000 square meter plot of land. The project will be completed in six (6) months. The project is expected to cost N100,000,000.00.",
+    startDate: "2024-01-01",
+    timeline: "Six (6) months",
+    status: "Completed",
+    contractedCompany: "Company 4",
+    photos: [
+      {
+        id: "p4-1",
+        src: "/assets/images/olu-1.jpg",
+        caption: "Survey and marking",
+        date: "2024-01-08",
+      },
+      {
+        id: "p4-2",
+        src: "/assets/images/olu-1.jpg",
+        caption: "Execution of primary works",
+        date: "2024-02-19",
+      },
+      {
+        id: "p4-3",
+        src: "/assets/images/olu-1.jpg",
+        caption: "Monitoring mission",
+        date: "2024-03-14",
+      },
+      {
+        id: "p4-4",
+        src: "/assets/images/olu-1.jpg",
+        caption: "Late-stage completion",
+        date: "2024-04-28",
+      },
+    ],
+  },
+  {
+    name: "Project 5",
+    description: "Project 5 Description",
+    projectType: "Housing",
+    overview:
+      "This is a housing project where residents of the community will be provided with a safe and secure place to live. It will be built on a 1000 square meter plot of land. The project will be completed in six (6) months. The project is expected to cost N100,000,000.00.",
+    startDate: "2024-01-01",
+    timeline: "Six (6) months",
+    status: "Completed",
+    contractedCompany: "Company 5",
+    photos: [
+      {
+        id: "p5-1",
+        src: "/assets/images/olu-1.jpg",
+        caption: "Initial setup",
+        date: "2024-01-06",
+      },
+      {
+        id: "p5-2",
+        src: "/assets/images/olu-1.jpg",
+        caption: "Project execution",
+        date: "2024-02-26",
+      },
+      {
+        id: "p5-3",
+        src: "/assets/images/olu-1.jpg",
+        caption: "Field supervision",
+        date: "2024-03-18",
+      },
+      {
+        id: "p5-4",
+        src: "/assets/images/olu-1.jpg",
+        caption: "Close-out checks",
+        date: "2024-04-30",
+      },
+    ],
+  },
+];
 
 const projectStatus = [
   { name: "Completed", value: 45, count: 45 },
@@ -54,15 +246,29 @@ const completionTimeline = [
 const totalProjects = projectStatus.reduce((sum, item) => sum + item.count, 0);
 const completedProjects =
   projectStatus.find((item) => item.name === "Completed")?.count || 0;
-const inProgressProjects =
-  projectStatus.find((item) => item.name === "In Progress")?.count || 0;
 const completionRate = (completedProjects / totalProjects) * 100;
 
 export default function ProjectAnalysis() {
+  const [selectedProject, setSelectedProject] = useState<ProjectDetail | null>(
+    null,
+  );
+  const handleViewProject = (project: ProjectDetail) => {
+    setSelectedProject(project);
+  };
+
+  if (selectedProject) {
+    return (
+      <ProjectDetails
+        project={selectedProject}
+        onBack={() => setSelectedProject(null)}
+      />
+    );
+  }
+
   return (
     <div className="p-4 sm:p-6 lg:p-8 space-y-4 sm:space-y-6 pt-16 lg:pt-8">
       <div className="mb-4 sm:mb-6 lg:mb-8">
-        <h1 className="text-2xl sm:text-3xl font-bold text-gray-800 mb-2">
+        <h1 className="text-2xl sm:text-3xl font-bold text-[#284d44] mb-2">
           Project Implementation Analysis
         </h1>
         <p className="text-sm sm:text-base text-gray-600">
@@ -70,15 +276,50 @@ export default function ProjectAnalysis() {
         </p>
       </div>
 
+      <div className="bg-white p-4 sm:p-6 rounded-lg shadow-md border border-gray-200">
+        <h2 className="text-lg sm:text-xl font-semibold text-gray-800 mb-3 sm:mb-4">
+          Project Year Journey
+        </h2>
+        <div className="flex items-center justify-between ">
+          <div className="flex items-center gap-2">
+            <h5 className="text-sm sm:text-base text-gray-600">Select Year:</h5>
+            <select className="text-sm sm:text-base text-gray-600 border border-gray-300 rounded-md px-4 py-2">
+              <option value="2024">2024</option>
+              <option value="2025">2025</option>
+              <option value="2026">2026</option>
+            </select>
+          </div>
+          <div className="flex items-center gap-2">
+            <h5 className="text-sm sm:text-base text-gray-600 ">
+              Select Month:
+            </h5>
+            <select className="text-sm sm:text-base text-gray-600 border border-gray-300 rounded-md px-4 py-2">
+              <option value="January">January</option>
+              <option value="February">February</option>
+              <option value="March">March</option>
+              <option value="April">April</option>
+              <option value="May">May</option>
+              <option value="June">June</option>
+              <option value="July">July</option>
+              <option value="August">August</option>
+              <option value="September">September</option>
+              <option value="October">October</option>
+              <option value="November">November</option>
+              <option value="December">December</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
       {/* Key Metrics */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
-        <div className="bg-white p-4 sm:p-6 rounded-lg shadow-md border border-gray-200">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
+        <div className="bg-white p-4 sm:p-6 rounded-lg shadow-md border border-gray-200 hover:scale-110 transition-all duration-300 cursor-pointer">
           <div className="flex items-center justify-between">
             <div className="flex-1 min-w-0">
               <p className="text-xs sm:text-sm text-gray-600 mb-1">
                 Total Projects
               </p>
-              <p className="text-xl sm:text-2xl font-bold text-gray-800">
+              <p className="text-xl sm:text-2xl font-bold text-primary-600">
                 {totalProjects}
               </p>
             </div>
@@ -86,10 +327,12 @@ export default function ProjectAnalysis() {
           </div>
         </div>
 
-        <div className="bg-white p-4 sm:p-6 rounded-lg shadow-md border border-gray-200">
+        <div className="bg-white p-4 sm:p-6 rounded-lg shadow-md border border-gray-200 hover:scale-110 transition-all duration-300 cursor-pointer">
           <div className="flex items-center justify-between">
             <div className="flex-1 min-w-0">
-              <p className="text-xs sm:text-sm text-gray-600 mb-1">Completed</p>
+              <p className="text-xs sm:text-sm text-gray-600 mb-1">
+                Number of LGAs Reached
+              </p>
               <p className="text-xl sm:text-2xl font-bold text-green-600">
                 {completedProjects}
               </p>
@@ -98,25 +341,11 @@ export default function ProjectAnalysis() {
           </div>
         </div>
 
-        <div className="bg-white p-4 sm:p-6 rounded-lg shadow-md border border-gray-200">
+        <div className="bg-white p-4 sm:p-6 rounded-lg shadow-md border border-gray-200 hover:scale-110 transition-all duration-300 cursor-pointer">
           <div className="flex items-center justify-between">
             <div className="flex-1 min-w-0">
               <p className="text-xs sm:text-sm text-gray-600 mb-1">
-                In Progress
-              </p>
-              <p className="text-xl sm:text-2xl font-bold text-blue-600">
-                {inProgressProjects}
-              </p>
-            </div>
-            <Clock className="w-8 h-8 sm:w-10 sm:h-10 text-blue-600 flex-shrink-0 ml-2" />
-          </div>
-        </div>
-
-        <div className="bg-white p-4 sm:p-6 rounded-lg shadow-md border border-gray-200">
-          <div className="flex items-center justify-between">
-            <div className="flex-1 min-w-0">
-              <p className="text-xs sm:text-sm text-gray-600 mb-1">
-                Completion Rate
+                Project Completion Rate
               </p>
               <p className="text-xl sm:text-2xl font-bold text-gray-800">
                 {completionRate.toFixed(1)}%
@@ -127,6 +356,49 @@ export default function ProjectAnalysis() {
         </div>
       </div>
 
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
+        <div className="bg-blue-100 p-4 sm:p-6 rounded-lg shadow-md border border-gray-200 hover:scale-110 transition-all duration-300 cursor-pointer">
+          <div className="flex items-center justify-between">
+            <div className="flex-1 min-w-0">
+              <p className="text-xs sm:text-sm text-gray-600 mb-1">
+                Completed Projects
+              </p>
+              <p className="text-xl sm:text-2xl font-bold text-primary-600">
+                {totalProjects}
+              </p>
+            </div>
+            <FolderKanban className="w-8 h-8 sm:w-10 sm:h-10 text-primary-600 flex-shrink-0 ml-2" />
+          </div>
+        </div>
+
+        <div className="bg-green-100 p-4 sm:p-6 rounded-lg shadow-md border border-gray-200 hover:scale-110 transition-all duration-300 cursor-pointer">
+          <div className="flex items-center justify-between">
+            <div className="flex-1 min-w-0">
+              <p className="text-xs sm:text-sm text-gray-600 mb-1">
+                Ongoing Projects{" "}
+              </p>
+              <p className="text-xl sm:text-2xl font-bold text-green-600">
+                {completedProjects}
+              </p>
+            </div>
+            <CheckCircle className="w-8 h-8 sm:w-10 sm:h-10 text-green-600 flex-shrink-0 ml-2" />
+          </div>
+        </div>
+
+        <div className="bg-yellow-100 p-4 sm:p-6 rounded-lg shadow-md border border-gray-200 hover:scale-110 transition-all duration-300 cursor-pointer">
+          <div className="flex items-center justify-between">
+            <div className="flex-1 min-w-0">
+              <p className="text-xs sm:text-sm text-gray-600 mb-1">
+                Delayed Projects
+              </p>
+              <p className="text-xl sm:text-2xl font-bold text-gray-800">
+                {completionRate.toFixed(1)}%
+              </p>
+            </div>
+            <AlertTriangle className="w-8 h-8 sm:w-10 sm:h-10 text-yellow-600 flex-shrink-0 ml-2" />
+          </div>
+        </div>
+      </div>
       {/* Charts Row 1 */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
         <div className="bg-white p-4 sm:p-6 rounded-lg shadow-md border border-gray-200">
@@ -158,7 +430,7 @@ export default function ProjectAnalysis() {
                   />
                 ))}
               </Pie>
-              <Tooltip />
+              <Tooltip contentStyle={{ fontSize: "10px" }} />
             </PieChart>
           </ResponsiveContainer>
         </div>
@@ -183,45 +455,27 @@ export default function ProjectAnalysis() {
               <Radar
                 name="Performance"
                 dataKey="score"
-                stroke="#0ea5e9"
-                fill="#0ea5e9"
+                stroke="#517b71"
+                fill="#3c7466"
                 fillOpacity={0.6}
               />
-              <Tooltip />
+              <Tooltip contentStyle={{ fontSize: "10px" }} />
             </RadarChart>
           </ResponsiveContainer>
         </div>
       </div>
 
-      {/* Charts Row 2 */}
       <div className="bg-white p-4 sm:p-6 rounded-lg shadow-md border border-gray-200">
         <h2 className="text-lg sm:text-xl font-semibold text-gray-800 mb-3 sm:mb-4">
-          Projects by Sector
+          LGAs Reached by Government Projects
         </h2>
-        <ResponsiveContainer width="100%" height={250} className="sm:h-[300px]">
-          <BarChart
-            data={projectsBySector}
-            margin={{ top: 5, right: 10, left: 0, bottom: 60 }}
-          >
-            <CartesianGrid strokeDasharray="3 3" />
-            <XAxis
-              dataKey="sector"
-              angle={-45}
-              textAnchor="end"
-              height={80}
-              tick={{ fontSize: 12 }}
-            />
-            <YAxis tick={{ fontSize: 12 }} />
-            <Tooltip />
-            <Legend wrapperStyle={{ fontSize: "12px" }} />
-            <Bar dataKey="completed" fill="#10b981" name="Completed" />
-            <Bar dataKey="inProgress" fill="#0ea5e9" name="In Progress" />
-            <Bar dataKey="planned" fill="#f59e0b" name="Planned" />
-          </BarChart>
-        </ResponsiveContainer>
+        <p>
+          A map of Kebbi state with indicators of LGAs reached by government
+          projects.
+        </p>
       </div>
 
-      <div className="bg-white p-4 sm:p-6 rounded-lg shadow-md border border-gray-200">
+      {/* <div className="bg-white p-4 sm:p-6 rounded-lg shadow-md border border-gray-200">
         <h2 className="text-lg sm:text-xl font-semibold text-gray-800 mb-3 sm:mb-4">
           Project Completion Timeline
         </h2>
@@ -239,6 +493,60 @@ export default function ProjectAnalysis() {
             <Bar dataKey="started" fill="#0ea5e9" name="Started" />
           </BarChart>
         </ResponsiveContainer>
+      </div> */}
+
+      <div className="bg-white p-4 sm:p-6 rounded-lg shadow-md border border-gray-200">
+        <h2 className="text-lg sm:text-xl font-semibold text-gray-800 mb-3 sm:mb-4">
+          Project Overview
+        </h2>
+        <div className="overflow-x-auto -mx-4 sm:mx-0">
+          <div className="inline-block min-w-full align-middle">
+            <table className="min-w-full text-left text-sm">
+              <thead>
+                <tr className="border-b border-gray-200">
+                  <th className="pb-3 px-4 sm:px-0 text-gray-600 font-semibold text-xs sm:text-sm">
+                    Project Name
+                  </th>
+                  <th className="pb-3 px-4 sm:px-0 text-gray-600 font-semibold text-xs sm:text-sm">
+                    Project Description
+                  </th>
+                  <th className="pb-3 px-4 sm:px-0 text-gray-600 font-semibold text-xs sm:text-sm">
+                    Start Date
+                  </th>
+                  <th className="pb-3 px-4 sm:px-0 text-gray-600 font-semibold text-xs sm:text-sm">
+                    Timeline
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                {projectDetails.map((item) => {
+                  return (
+                    <tr key={item.name} className="border-b border-gray-100">
+                      <td className="py-3 px-4 sm:px-0 text-gray-800 font-medium text-xs sm:text-sm">
+                        {item.name}
+                      </td>
+                      <td className="py-3 px-4 sm:px-0 text-gray-800 text-xs sm:text-sm">
+                        {item.description}
+                      </td>
+                      <td className="py-3 px-4 sm:px-0 text-gray-800 text-xs sm:text-sm">
+                        {item.startDate}
+                      </td>
+                      <td className="py-3 px-4 sm:px-0">{item.timeline}</td>
+                      <td>
+                        <button
+                          className="text-white font-medium text-xs bg-[#3c7466] hover:bg-emerald-900 transition-all duration-300 cursor-pointer px-3 py-1.5 rounded-full"
+                          onClick={() => handleViewProject(item)}
+                        >
+                          View Project
+                        </button>
+                      </td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+          </div>
+        </div>
       </div>
 
       {/* Project Status Table */}

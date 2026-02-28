@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "Dashboard with infographics for Kebbi State data analysis",
   "private": true,
+  "type": "module",
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",

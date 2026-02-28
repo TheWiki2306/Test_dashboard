@@ -16,3 +16,18 @@ code {
     monospace;
 }
 
+/* Simple horizontal ticker animation for landing page */
+.ticker-track {
+  display: inline-flex;
+  min-width: max-content;
+  animation: kebbi-ticker 28s linear infinite;
+}
+
+@keyframes kebbi-ticker {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
